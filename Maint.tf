@@ -34,17 +34,18 @@ resource "aws_subnet" "public" {
 resource "aws_subnet" "private" {
   count                   = var.preferred_number_of_private_subnets == null ? length(data.aws_availability_zones.available.names) : var.preferred_number_of_private_subnets
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = cidrsubnet(var.vpc_cidr, 8, count.index + var.preferred_number_of_public_subnets) # /24 subnets
-  map_public_ip_on_launch = false
+  cidr_block              = cidrsubnet(var.vpc_cidr, 8, count.index + 2)
+  map_public_ip_on_launch = true
   availability_zone       = data.aws_availability_zones.available.names[count.index]
 
-  tags = merge(
+tags = merge(
     var.tags,
     {
-      Name = format("%s-PrivateSub-%s", var.name, count.index)
-    }
+      Name = format("%s-PrivateSubnet-%s", var.name, count.index)
+    },
   )
 }
+
 
 # Create Elastic IP for NAT Gateway
 resource "aws_eip" "nat_eip" {
@@ -173,7 +174,47 @@ resource "aws_iam_role_policy_attachment" "test-attach" {
         policy_arn = aws_iam_policy.policy.arn
     }
 
-    resource "aws_iam_instance_profile" "ip" {
+resource "aws_iam_instance_profile" "ip" {
         name = "aws_instance_profile_test"
         role =  aws_iam_role.ec2_instance_role.name
     }
+
+  
+  resource "aws_lb" "ext-alb" {
+  name     = "ext-alb"
+  internal = false
+  security_groups = [
+    aws_security_group.ext-alb-sg.id,
+  ]
+
+  subnets = [
+    aws_subnet.public[0].id,
+    aws_subnet.public[1].id
+  ]
+
+   tags = merge(
+    var.tags,
+    {
+      Name = "ACS-ext-alb"
+    },
+  )
+
+  ip_address_type    = "ipv4"
+  load_balancer_type = "application"
+}
+
+resource "aws_lb_target_group" "nginx-tgt" {
+  health_check {
+    interval            = 10
+    path                = "/healthstatus"
+    protocol            = "HTTPS"
+    timeout             = 5
+    healthy_threshold   = 5
+    unhealthy_threshold = 2
+  }
+  name        = "nginx-tgt"
+  port        = 443
+  protocol    = "HTTPS"
+  target_type = "instance"
+  vpc_id      = aws_vpc.main.id
+}

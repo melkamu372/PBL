@@ -41,3 +41,12 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+variable "ami" {
+  type = string
+  description = "AMI ID for the launch template"
+}
+
+variable "keypair" {
+  type = string
+  description = "Key pair for instances"
+}
