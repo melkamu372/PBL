@@ -1,11 +1,11 @@
 # creating sns topic for all the auto scaling groups
-resource "aws_sns_topic" "savvytek-sns" {
+resource "aws_sns_topic" "melkamutech-sns" {
   name = "Default_CloudWatch_Alarms_Topic"
 }
 
 
 # creating notification for all the auto scaling groups
-resource "aws_autoscaling_notification" "savvytek_notifications" {
+resource "aws_autoscaling_notification" "melkamutech_notifications" {
   group_names = [
     aws_autoscaling_group.bastion-asg.name,
     aws_autoscaling_group.nginx-asg.name,
@@ -19,7 +19,7 @@ resource "aws_autoscaling_notification" "savvytek_notifications" {
     "autoscaling:EC2_INSTANCE_TERMINATE_ERROR",
   ]
 
-  topic_arn = aws_sns_topic.savvytek-sns.arn
+  topic_arn = aws_sns_topic.melkamutech-sns.arn
 }
 
 
@@ -87,7 +87,7 @@ resource "aws_autoscaling_group" "bastion-asg" {
   }
   tag {
     key                 = "Name"
-    value               = "savvytek-bastion"
+    value               = "melkamutech-bastion"
     propagate_at_launch = true
   }
 
@@ -152,7 +152,7 @@ resource "aws_autoscaling_group" "nginx-asg" {
 
   tag {
     key                 = "Name"
-    value               = "savvytek-nginx"
+    value               = "melkamutech-nginx"
     propagate_at_launch = true
   }
 

@@ -1,5 +1,4 @@
 # launch template for wordpress
-
 resource "aws_launch_template" "wordpress-launch-template" {
   image_id               = var.ami
   instance_type          = "t2.micro"
@@ -57,7 +56,7 @@ resource "aws_autoscaling_group" "wordpress-asg" {
   }
   tag {
     key                 = "Name"
-    value               = "savvytek-wordpress"
+    value               = "melkamutech-wordpress"
     propagate_at_launch = true
   }
 }
@@ -132,7 +131,7 @@ resource "aws_autoscaling_group" "tooling-asg" {
 
   tag {
     key                 = "Name"
-    value               = "savvytek-tooling"
+    value               = "melkamutech-tooling"
     propagate_at_launch = true
   }
 }
