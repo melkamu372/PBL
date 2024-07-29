@@ -19,8 +19,8 @@ override.tf.json
 .terraform.lock.hcl
 
 # Ignore local variable files (commonly used for sensitive data)
-#*.tfvars
-#*.tfvars.json
+*.tfvars
+*.tfvars.json
 
 # Ignore sensitive data files (e.g., credentials)
 credentials
