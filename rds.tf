@@ -17,7 +17,7 @@ resource "aws_db_instance" "melkamutech-rds" {
   storage_type           = "gp2"
   engine                 = "mysql"
   engine_version         = "5.7"
-  instance_class         = "db.t2.micro"
+  instance_class         = "db.t3.micro"
   db_name                = "melkamutechdb"
   username               = var.master-username
   password               = var.master-password

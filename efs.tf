@@ -9,7 +9,7 @@ resource "aws_kms_key" "melkamutech-kms" {
     {
       "Sid": "Enable IAM User Permissions",
       "Effect": "Allow",
-      "Principal": { "AWS": "arn:aws:iam::${var.account_no}:user/melkamu" },
+      "Principal": { "AWS":"arn:aws:iam::736498736845:user/terraform" },
       "Action": "kms:*",
       "Resource": "*"
     }
