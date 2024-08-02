@@ -11,3 +11,5 @@ sed -n 'w nginx.conf' reverse.conf
 systemctl restart nginx
 rm -rf reverse.conf
 rm -rf /ACS-project-config
+
+

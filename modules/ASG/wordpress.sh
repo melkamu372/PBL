@@ -17,10 +17,23 @@ cp wordpress/wp-config-sample.php wordpress/wp-config.php
 sudo cp -R /wordpress/* /var/www/html/
 cd /var/www/html/
 sudo touch healthstatus
-sed -i "s/localhost/savvytek-database.c4scns6d3saq.eu-west-2.rds.amazonaws.com/g" wp-config.php 
-sed -i "s/username_here/savvytekadmin/g" wp-config.php 
+sed -i "s/localhost/melkamutech-database.c4scns6d3saq.eu-west-2.rds.amazonaws.com/g" wp-config.php 
+sed -i "s/username_here/melkamutechadmin/g" wp-config.php 
 sed -i "s/password_here/admin12345/g" wp-config.php 
 sed -i "s/database_name_here/wordpressdb/g" wp-config.php 
 chcon -t httpd_sys_rw_content_t /var/www/html/ -R
 sudo systemctl restart httpd
 sudo systemctl status httpd
+
+
+
+
+
+
+
+
+
+
+
+
+
