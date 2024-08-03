@@ -80,3 +80,24 @@ variable "master-password" {
   type        = string
   description = "RDS master password"
 }
+
+variable "table_name" {
+  description = "The name of the DynamoDB table"
+  type        = string
+}
+
+variable "bucket_name" {
+  description = "The name of the S3 bucket"
+  type        = string
+}
+
+variable "force_destroy" {
+  description = "Whether to force destroy the S3 bucket"
+  type        = bool
+  default     = false
+}
+
+variable "ami_ids" {
+  description = "Map of AMI IDs per region"
+  type        = map(map(string))
+}
