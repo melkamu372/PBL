@@ -83,12 +83,14 @@ module "RDS" {
   private_subnets = [module.Network.private_subnets-3, module.Network.private_subnets-4]
 }
 
-# # The Module creates instances for jenkins, sonarqube abd jfrog
+# The Module creates instances for jenkins, sonarqube abd jfrog
 module "Compute" {
   source          = "./modules/Compute"
-  ami-jenkins     = var.ami
-  ami-sonar       = var.ami
-  ami-jfrog       = var.ami
+  region          = var.region
+  ami             = var.ami
+  ami-jenkins     = lookup(lookup(var.ami_ids, var.region, {}), "jenkins", var.ami)
+  ami-sonar       = lookup(lookup(var.ami_ids, var.region, {}), "sonar", var.ami)
+  ami-jfrog       = lookup(lookup(var.ami_ids, var.region, {}), "jfrog", var.ami)
   subnets-compute = module.Network.public_subnets-1
   sg-compute      = [module.SG.ALB-sg]
   keypair         = var.keypair

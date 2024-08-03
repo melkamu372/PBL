@@ -96,3 +96,8 @@ variable "force_destroy" {
   type        = bool
   default     = false
 }
+
+variable "ami_ids" {
+  description = "Map of AMI IDs per region"
+  type        = map(map(string))
+}
