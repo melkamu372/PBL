@@ -1,12 +1,12 @@
 module "S3" {
   source        = "./modules/S3"
-  bucket_name   = "melkamu-dev-terraform-bucket"
-  force_destroy = true
+  bucket_name   = var.bucket_name
+  force_destroy = var.force_destroy
 }
 
 module "Dynamodb" {
   source      = "./modules/Dynamodb"
-  table_name  = "terraform-locks"
+  table_name  = var.table_name
 }
 module "Network" {
   source                              = "./modules/Network"
