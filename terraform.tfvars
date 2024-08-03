@@ -1,5 +1,11 @@
 region = "us-east-1"
 
+bucket_name="melkamu-dev-terraform-bucket"
+force_destroy = true
+table_name="terraform-locks"
+
+
+
 vpc_cidr = "172.16.0.0/16" 
 
 enable_dns_support = "true" 
@@ -11,6 +17,7 @@ enable_classiclink = "false"
 enable_classiclink_dns_support = "false"
 preferred_number_of_public_subnets="2"
 preferred_number_of_private_subnets="4"
+
 environment               = "production"
 ami                       = "ami-03972092c42e8c0ca" 
 keypair                   = "melkamu372_key"
@@ -23,3 +30,5 @@ tags = {
   Managed-By      = "Terraform"
   Billing-Account = "7364987368405"
 }
+
+
