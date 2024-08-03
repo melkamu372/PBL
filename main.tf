@@ -5,8 +5,8 @@ module "S3" {
 }
 
 module "Dynamodb" {
-  source      = "./modules/Dynamodb"
-  table_name  = var.table_name
+  source     = "./modules/Dynamodb"
+  table_name = var.table_name
 }
 module "Network" {
   source                              = "./modules/Network"
